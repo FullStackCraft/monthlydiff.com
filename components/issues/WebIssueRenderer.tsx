@@ -7,7 +7,7 @@ export function WebIssueRenderer({ issue }: { issue: Issue }) {
   return (
     <article className="issue">
       <header className="issue-header">
-        <Masthead palette={issue.mastheadPalette} />
+        <Masthead />
         <p className="issue-kicker">
           Issue {issueNumber(issue.number)} · <time dateTime={issue.publishDate}>{formatDate(issue.publishDate)}</time>
           {issue.isDraft && " · Draft"}

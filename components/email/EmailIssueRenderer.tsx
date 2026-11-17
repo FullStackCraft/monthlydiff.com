@@ -1,17 +1,21 @@
 import { Body, Container, Head, Heading, Hr, Html, Img, Preview, Section, Text } from "react-email";
 import { formatDate, issueNumber } from "../../lib/calendar";
 import type { Issue } from "../../lib/issue-schema";
-import { mastheadAssets, publication, theme } from "../../lib/theme";
+import { emailMastheadPath, emailMastheadSize, publication, theme } from "../../lib/theme";
 import { ChapterMarkdown } from "../issues/ChapterMarkdown";
 
 export function EmailIssueRenderer({
   issue,
   textMasthead = false,
+  mastheadSrc,
 }: {
   issue: Issue;
   textMasthead?: boolean;
+  mastheadSrc?: string;
 }) {
-  const image = textMasthead ? undefined : mastheadAssets[issue.mastheadPalette].emailImage;
+  const image = textMasthead
+    ? undefined
+    : mastheadSrc ?? new URL(emailMastheadPath(issue.mastheadPalette), publication.origin).href;
 
   return (
     <Html lang="en">
@@ -21,11 +25,10 @@ export function EmailIssueRenderer({
         <Container style={{ maxWidth: "600px", margin: "0 auto", padding: "24px 20px" }}>
           {image ? (
             <Img
-              src={image.url}
-              width={image.width}
-              height={image.height}
+              src={image}
+              {...emailMastheadSize}
               alt={publication.name}
-              style={{ display: "block", maxWidth: "100%", fontFamily: theme.serif, fontSize: 24, color: theme.ink }}
+              style={{ display: "block", maxWidth: "100%", height: "auto", fontFamily: theme.serif, fontSize: 24, color: theme.ink }}
             />
           ) : (
             <Text style={{ margin: 0, fontFamily: theme.serif, fontSize: 26, lineHeight: "32px" }}>

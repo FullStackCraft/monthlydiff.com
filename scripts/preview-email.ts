@@ -1,8 +1,11 @@
+import { readFile } from "node:fs/promises";
 import { createServer } from "node:http";
+import { join } from "node:path";
 import { parseArgs } from "node:util";
 import { renderIssueEmail } from "../components/email/render-issue-email";
 import { issueIdPattern } from "../lib/issue-schema";
 import { loadIssue } from "../lib/issues";
+import { emailMastheadPath } from "../lib/theme";
 
 const { values } = parseArgs({
   options: { issue: { type: "string", default: "2027-01" } },
@@ -31,7 +34,8 @@ createServer(async (request, response) => {
       response.writeHead(404).end("Issue not found");
       return;
     }
-    const { html, text } = await renderIssueEmail(issue);
+    const png = await readFile(join("public", emailMastheadPath(issue.mastheadPalette)));
+    const { html, text } = await renderIssueEmail(issue, `data:image/png;base64,${png.toString("base64")}`);
     response.writeHead(200, { "Content-Type": plain ? "text/plain; charset=utf-8" : "text/html; charset=utf-8" });
     response.end(plain ? text : html);
   } catch (error) {

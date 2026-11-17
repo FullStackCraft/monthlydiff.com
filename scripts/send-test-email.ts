@@ -1,8 +1,11 @@
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { parseArgs } from "node:util";
 import { Resend } from "resend";
 import { renderIssueEmail } from "../components/email/render-issue-email";
 import { issueIdPattern } from "../lib/issue-schema";
 import { loadIssue } from "../lib/issues";
+import { emailMastheadPath } from "../lib/theme";
 
 const recipients = [
   "frewin.christopher@gmail.com",
@@ -35,7 +38,9 @@ async function main() {
   const issue = await loadIssue(id, { includeDraft: true });
   if (!issue) throw new Error(`Issue ${id} was not found.`);
 
-  const { html, text } = await renderIssueEmail(issue);
+  const contentId = "monthlydiff-masthead";
+  const content = await readFile(join("public", emailMastheadPath(issue.mastheadPalette)));
+  const { html, text } = await renderIssueEmail(issue, `cid:${contentId}`);
   const resend = new Resend(apiKey);
   const { data, error } = await resend.emails.send({
     from,
@@ -43,6 +48,12 @@ async function main() {
     subject: `[TEST] ${issue.headline.replace(/[\r\n]+/g, " ")}`,
     html,
     text,
+    attachments: [{
+      content,
+      filename: "monthlydiff-masthead.png",
+      contentType: "image/png",
+      contentId,
+    }],
   });
   if (error) throw new Error(error.message);
   console.log(`Resend accepted test email ${data?.id}.`);

@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import { readFile } from "node:fs/promises";
+import { join } from "node:path";
 import { test } from "node:test";
 import { renderToStaticMarkup } from "react-dom/server";
 import { YearCalendar } from "../components/calendar/YearCalendar";
@@ -8,7 +10,7 @@ import { formatDate, schedule } from "../lib/calendar";
 import { chapters } from "../lib/chapters";
 import { validateIssueMetadata } from "../lib/issue-schema";
 import { listIssueMetadata, loadIssue } from "../lib/issues";
-import { mastheadAssets } from "../lib/theme";
+import { emailMastheadPath, emailMastheadSize, publication, seasonalMastheadPalette } from "../lib/theme";
 
 test("public readers respect publication status while local preview can read the issue", async () => {
   assert.equal(await loadIssue("../2027-01", { includeDraft: true }), null);
@@ -55,6 +57,16 @@ test("the 2027 calendar marks only the twelve month ends in Vienna", () => {
     Array.from(html.matchAll(/<time class="publication-day" dateTime="([^"]+)"/g), ([, date]) => date),
     schedule.map(({ publishDate }) => publishDate),
   );
+});
+
+test("the masthead changes palette at Vienna season boundaries", () => {
+  assert.deepEqual(
+    Array.from({ length: 12 }, (_, month) => seasonalMastheadPalette(new Date(Date.UTC(2027, month, 15)))),
+    ["ice", "ice", "aurora", "aurora", "aurora", "neon", "neon", "neon", "sunset", "sunset", "sunset", "ice"],
+  );
+  assert.equal(seasonalMastheadPalette(new Date("2026-11-30T22:59:59Z")), "sunset");
+  assert.equal(seasonalMastheadPalette(new Date("2026-11-30T23:00:00Z")), "ice");
+  assert.equal(seasonalMastheadPalette(new Date("2027-08-31T22:00:00Z")), "sunset");
 });
 
 test("one Markdown edit reaches web, HTML email and plain text in chapter order", async () => {
@@ -107,18 +119,26 @@ test("one Markdown edit reaches web, HTML email and plain text in chapter order"
   assert.match(text, /The Monthly Diff/);
 });
 
-test("a supplied email masthead keeps alt text and live publication text", async () => {
+test("every email palette has a retina PNG and an accessible text fallback", async () => {
   const issue = await loadIssue("2027-01", { includeDraft: true });
   assert.ok(issue);
-  const original = mastheadAssets.ice.emailImage;
-  mastheadAssets.ice.emailImage = { url: "https://example.com/masthead.png", width: 240, height: 42 };
-  try {
-    const { html, text } = await renderIssueEmail({ ...issue, mastheadPalette: "ice" });
+
+  for (const mastheadPalette of ["ice", "aurora", "neon", "sunset"] as const) {
+    const path = emailMastheadPath(mastheadPalette);
+    const png = await readFile(join("public", path));
+    assert.equal(png.subarray(0, 8).toString("hex"), "89504e470d0a1a0a");
+    assert.equal(png.readUInt32BE(16), emailMastheadSize.width * 2);
+    assert.equal(png.readUInt32BE(20), emailMastheadSize.height * 2);
+
+    const { html, text } = await renderIssueEmail({ ...issue, mastheadPalette });
     assert.match(html, /<img[^>]*alt="The Monthly Diff"/);
+    assert.ok(html.includes(new URL(path, publication.origin).href));
     assert.match(html, />The Monthly Diff<\/p>/);
     assert.match(text, /The Monthly Diff/);
-    assert.doesNotMatch(text, /masthead\.png/);
-  } finally {
-    mastheadAssets.ice.emailImage = original;
+    assert.doesNotMatch(text, /\.png/);
   }
+
+  const { html, text } = await renderIssueEmail(issue, "cid:monthlydiff-masthead");
+  assert.match(html, /src="cid:monthlydiff-masthead"/);
+  assert.doesNotMatch(text, /cid:/);
 });

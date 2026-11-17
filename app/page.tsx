@@ -23,7 +23,7 @@ export default async function HomePage() {
   return (
     <div className="home">
       <section className="hero" aria-label={publication.name}>
-        <Masthead as="h1" className="hero-title" palette={latest?.mastheadPalette} />
+        <Masthead as="h1" className="hero-title" />
         <p className="hero-tagline">{publication.tagline}</p>
       </section>
       <div className="home-details">
@@ -32,7 +32,7 @@ export default async function HomePage() {
           {signupUrl ? (
             <a className="button" href={signupUrl}>Subscribe <span aria-hidden="true">↗</span></a>
           ) : (
-            <p className="muted">Signups closed</p>
+            <p className="muted">Sign ups opening shortly</p>
           )}
         </section>
         <section aria-labelledby="featured-heading" className="featured">

@@ -40,6 +40,8 @@ Connect the Git repository using Netlify's standard Next.js integration. `netlif
 
 ## Assets and deferred work
 
-Register owner-supplied seasonal PrismCode web fonts and public email PNGs in `lib/theme.ts`. The masthead uses ordinary text until assets are registered. The email image has alt text and live publication text.
+The web masthead uses [PrismCode Regular v0.1.2](https://github.com/princefishthrower/PrismCode/releases/tag/v0.1.2). The release font and its OFL notice are bundled in `public/fonts/prismcode/0.1.2/`. Its palette switches using the date in Europe/Vienna. December–February uses Ice, March–May uses Aurora, June–August uses Neon, and September–November uses Sunset.
+
+Email uses the issue’s palette to pick a PNG from `public/branding/prismcode-0.1.2/` and includes live publication text as a fallback. Test sends embed the PNG as an inline attachment. The rendered HTML uses the public PNG URL by default.
 
 The release index, collector, and production broadcasts are deferred. Before sending a broadcast, wire up confirmed subscriber consent and unsubscribe state in Resend and record the sent issue to prevent duplicates. The collector scope is in `backend/TODO.md`.

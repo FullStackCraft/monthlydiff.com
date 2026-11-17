@@ -1,28 +1,32 @@
-import type { CSSProperties } from "react";
-import { mastheadAssets, publication, type MastheadPalette } from "../../lib/theme";
+"use client";
 
-export function MastheadFonts() {
-  const rules = Object.entries(mastheadAssets).flatMap(([palette, { webFont }]) =>
-    webFont
-      ? [`@font-face{font-family:PrismCode-${palette};src:url("${webFont}") format("woff2");font-display:swap;}`]
-      : [],
-  );
+import { useSyncExternalStore } from "react";
+import { publication, seasonalMastheadPalette } from "../../lib/theme";
 
-  return rules.length > 0 ? <style>{rules.join("\n")}</style> : null;
+function subscribeToSeason(onChange: () => void) {
+  const timer = window.setInterval(onChange, 60_000);
+  document.addEventListener("visibilitychange", onChange);
+
+  return () => {
+    window.clearInterval(timer);
+    document.removeEventListener("visibilitychange", onChange);
+  };
 }
 
 export function Masthead({
   as: Tag = "span",
-  palette = "ice",
   className = "",
 }: {
   as?: "h1" | "span";
-  palette?: MastheadPalette;
   className?: string;
 }) {
-  const style = mastheadAssets[palette].webFont
-    ? ({ "--masthead-font": `PrismCode-${palette}, var(--web-serif)` } as CSSProperties)
-    : undefined;
+  // The site is prerendered. Read the live date in the browser so a change
+  // of season never needs a rebuild.
+  const palette = useSyncExternalStore(subscribeToSeason, seasonalMastheadPalette, () => "sunset");
 
-  return <Tag className={`masthead ${className}`} style={style}>{publication.name}</Tag>;
+  return (
+    <Tag className={`masthead ${className}`} data-palette={palette}>
+      {`<${publication.name}/>`}
+    </Tag>
+  );
 }

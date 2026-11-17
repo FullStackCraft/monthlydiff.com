@@ -5,7 +5,7 @@ import "@fontsource-variable/dm-sans/wght.css";
 import "@fontsource/pt-serif/latin-400.css";
 import "@fontsource/pt-serif/latin-400-italic.css";
 import "@fontsource/pt-serif/latin-700.css";
-import { Masthead, MastheadFonts } from "../components/brand/Masthead";
+import { Masthead } from "../components/brand/Masthead";
 import { publication, theme } from "../lib/theme";
 import "./globals.css";
 
@@ -22,7 +22,6 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body>
         <style>{`:root{${tokens}}`}</style>
-        <MastheadFonts />
         <a className="skip-link" href="#main">Skip to content</a>
         <header className="site-header frame">
           <Link href="/" aria-label="The Monthly Diff home" className="home-link">

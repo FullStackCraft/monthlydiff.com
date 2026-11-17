@@ -1,19 +1,20 @@
+import { publication } from "./theme";
+
 export const calendarYear = 2027;
-const timeZone = "Europe/Vienna";
 
 const fullDate = new Intl.DateTimeFormat("en-GB", {
   dateStyle: "long",
-  timeZone,
+  timeZone: publication.timeZone,
 });
 
 const monthName = new Intl.DateTimeFormat("en-GB", {
   month: "long",
-  timeZone,
+  timeZone: publication.timeZone,
 });
 
 const weekday = new Intl.DateTimeFormat("en-GB", {
   weekday: "short",
-  timeZone,
+  timeZone: publication.timeZone,
 });
 
 export function civilDate(year: number, monthIndex: number, day: number) {
