@@ -1,0 +1,13 @@
+id: "2027-01"
+number: 1
+publishDate: "2027-01-31"
+isDraft: true
+mastheadPalette: ice
+headline: "<placeholder here>"
+subtitle: "<placeholder here>"
+chapters:
+  majorReleases: "major-releases.md"
+  noteworthyUpdates: "noteworthy-updates.md"
+  breakingChanges: "breaking-changes.md"
+  graveyard: "graveyard.md"
+  fromTheEditor: "from-the-editor.md"

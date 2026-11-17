@@ -1,0 +1,45 @@
+{
+  "name": "monthlydiff.com",
+  "version": "0.1.0",
+  "scripts": {
+    "dev": "next dev --hostname 127.0.0.1",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx --test tests/*.test.tsx",
+    "email:preview": "tsx scripts/preview-email.ts",
+    "email:test": "tsx --env-file-if-exists=.env.local scripts/send-test-email.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FullStackCraft/monthlydiff.com.git"
+  },
+  "private": true,
+  "engines": {
+    "node": "^22.15.0 || >=24.0.0"
+  },
+  "dependencies": {
+    "@fontsource-variable/dm-sans": "^5.3.0",
+    "@fontsource/pt-serif": "^5.3.0",
+    "markdown-to-jsx": "^9.10.6",
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-email": "^6.11.14",
+    "resend": "^6.38.1",
+    "yaml": "^2.9.1"
+  },
+  "devDependencies": {
+    "@next/eslint-plugin-next": "^16.4.6",
+    "@tailwindcss/postcss": "^4.3.5",
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^10.15.0",
+    "tailwindcss": "^4.3.5",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.68.0"
+  }
+}
