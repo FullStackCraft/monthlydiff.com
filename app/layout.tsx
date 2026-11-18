@@ -36,7 +36,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <main id="main" className="frame" tabIndex={-1}>{children}</main>
         <footer className="site-footer frame">
           <Masthead />
-          <span>{publication.tagline}</span>
+          <span>{publication.footerTagline}</span>
         </footer>
       </body>
     </html>

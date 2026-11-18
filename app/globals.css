@@ -160,6 +160,19 @@
 
   .home-details > section { padding: 1.875rem 1.75rem 2rem; }
   .signup { border-right: 1px solid var(--line); }
+
+  .signup-fields { display: flex; flex-wrap: wrap; gap: .5rem; }
+  .signup-fields input {
+    flex: 1;
+    min-width: min(100%, 11rem);
+    min-height: 2.75rem;
+    padding: .55rem .7rem;
+    border: 1px solid var(--line);
+    background: var(--paper);
+  }
+  .signup-form [role="status"]:not(:empty) { margin-top: .6rem; }
+  .signup-form button:disabled { opacity: .65; }
+  .newsletter-result { display: grid; justify-items: start; gap: .8rem; }
   .home-details h2,
   .issue-kicker {
     margin-bottom: .75rem;

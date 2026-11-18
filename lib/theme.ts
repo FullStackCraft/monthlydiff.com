@@ -1,6 +1,7 @@
 export const publication = {
   name: "The Monthly Diff",
-  tagline: "Written by human hands. Always.",
+  tagline: "A monthly, handwritten, hand-curated newsletter exploring everything that has changed in the software world. From Rust to React, Python to PHP, TypeScript to TanStack, it's anything and everything you need to know that has changed since last month.",
+  footerTagline: "Written by human hands. Always.",
   origin: "https://monthlydiff.com",
   timeZone: "Europe/Vienna",
 };

@@ -1,0 +1,34 @@
+[
+  {"project":"Node.js","ecosystem":"JavaScript · Runtimes","repo":"nodejs/node"},
+  {"project":"Bun","ecosystem":"JavaScript · Runtimes","repo":"oven-sh/bun"},
+  {"project":"Deno","ecosystem":"JavaScript · Runtimes","repo":"denoland/deno"},
+  {"project":"TypeScript","ecosystem":"JavaScript · Tooling","repo":"microsoft/TypeScript"},
+  {"project":"Vite","ecosystem":"JavaScript · Tooling","repo":"vitejs/vite","changelogPath":"packages/vite/CHANGELOG.md"},
+  {"project":"pnpm","ecosystem":"JavaScript · Tooling","repo":"pnpm/pnpm","highlightPatterns":["re-verifies lockfile resolutions"]},
+  {"project":"ESLint","ecosystem":"JavaScript · Tooling","repo":"eslint/eslint"},
+  {"project":"React","ecosystem":"JavaScript · React","repo":"facebook/react"},
+  {"project":"Next.js","ecosystem":"JavaScript · React","repo":"vercel/next.js"},
+  {"project":"TanStack Query","ecosystem":"JavaScript · React","repo":"TanStack/query","tagPrefix":"@tanstack/react-query@"},
+  {"project":"Astro","ecosystem":"JavaScript · Frameworks","repo":"withastro/astro","tagPrefix":"astro@"},
+  {"project":"Vue","ecosystem":"JavaScript · Frameworks","repo":"vuejs/core","changelogPath":"CHANGELOG.md"},
+  {"project":"Svelte","ecosystem":"JavaScript · Frameworks","repo":"sveltejs/svelte","tagPrefix":"svelte@"},
+  {"project":"uv","ecosystem":"Python","repo":"astral-sh/uv"},
+  {"project":"Ruff","ecosystem":"Python","repo":"astral-sh/ruff"},
+  {"project":"FastAPI","ecosystem":"Python","repo":"fastapi/fastapi"},
+  {"project":"Rust","ecosystem":"Rust","repo":"rust-lang/rust","highlightPatterns":["stabilize never type","stabilize custom allocators","minimum publish age"]},
+  {"project":"Tokio","ecosystem":"Rust","repo":"tokio-rs/tokio","tagPrefix":"tokio-"},
+  {"project":"Hugo","ecosystem":"Go","repo":"gohugoio/hugo","highlightPatterns":["extended_? edition of Hugo is gone","setting.+transpiler.+libsass","standard archives"]},
+  {"project":"golangci-lint","ecosystem":"Go","repo":"golangci/golangci-lint"},
+  {"project":".NET","ecosystem":".NET","repo":"dotnet/core","followReleaseNotes":true,"notesByVersion":{
+    "v11.0.0":{
+      "raw":"https://raw.githubusercontent.com/dotnet/docs/main/docs/core/whats-new/dotnet-11/overview.md",
+      "url":"https://learn.microsoft.com/en-us/dotnet/core/whats-new/dotnet-11/overview",
+      "format":"overview",
+      "highlightPatterns":["union types","runtime-native async","updated minimum hardware requirements"]
+    }
+  }},
+  {"project":"ASP.NET Core","ecosystem":".NET","repo":"dotnet/aspnetcore"},
+  {"project":"Kubernetes","ecosystem":"Infrastructure","repo":"kubernetes/kubernetes"},
+  {"project":"Terraform","ecosystem":"Infrastructure","repo":"hashicorp/terraform"},
+  {"project":"Zig","ecosystem":"Zig","feed":"https://ziglang.org/news/index.xml","match":"release"}
+]

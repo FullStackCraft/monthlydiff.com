@@ -1,4 +1,4 @@
-import { Body, Container, Head, Heading, Hr, Html, Img, Preview, Section, Text } from "react-email";
+import { Body, Container, Head, Heading, Hr, Html, Img, Link, Preview, Section, Text } from "react-email";
 import { formatDate, issueNumber } from "../../lib/calendar";
 import type { Issue } from "../../lib/issue-schema";
 import { emailMastheadPath, emailMastheadSize, publication, theme } from "../../lib/theme";
@@ -8,10 +8,12 @@ export function EmailIssueRenderer({
   issue,
   textMasthead = false,
   mastheadSrc,
+  unsubscribeUrl,
 }: {
   issue: Issue;
   textMasthead?: boolean;
   mastheadSrc?: string;
+  unsubscribeUrl?: string;
 }) {
   const image = textMasthead
     ? undefined
@@ -57,6 +59,11 @@ export function EmailIssueRenderer({
               </div>
             </Section>
           ))}
+          {unsubscribeUrl && (
+            <Text style={{ color: theme.muted, fontSize: 14 }}>
+              <Link href={unsubscribeUrl} style={{ color: theme.accent, textDecoration: "underline" }}>Unsubscribe</Link>
+            </Text>
+          )}
           {image && (
             <Text style={{ color: theme.muted, fontSize: 14 }}>{publication.name}</Text>
           )}

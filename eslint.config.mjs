@@ -8,5 +8,5 @@ export default defineConfig([
     files: ["**/*.{ts,tsx}"],
     extends: [nextPlugin.configs["core-web-vitals"]],
   },
-  globalIgnores([".next/**", ".netlify/**", "out/**", "next-env.d.ts"]),
+  globalIgnores([".next/**", ".netlify/**", "out/**", "next-env.d.ts", "backend/.dist/**"]),
 ]);
