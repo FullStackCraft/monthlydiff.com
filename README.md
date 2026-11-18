@@ -48,6 +48,12 @@ For production, connect the Git repository to Netlify. Set the newsletter variab
 
 Publishing an issue on the website does not send email. Once an issue is public, run `npm run email:broadcast -- --issue YYYY-MM` to create an unsent Resend Broadcast draft for the configured segment. Review the draft and send from Resend when ready. Its footer uses Resend’s subscriber-specific unsubscribe link. Check for an existing draft or send before creating another draft for that issue.
 
+## Search and link previews
+
+Page metadata and the shared social image are configured in `lib/seo.ts`. The site serves `/robots.txt`, `/sitemap.xml`, `/rss.xml`, and `/llms.txt`. The discovery files pick up newly published issues from the same source as the archive.
+
+To inspect a page’s Markdown representation locally, run `curl -H 'Accept: text/markdown' http://127.0.0.1:3000/issues`. The Markdown routes list only published issues, including during local development.
+
 ## Assets and deferred work
 
 The web masthead uses [PrismCode Regular v0.1.2](https://github.com/princefishthrower/PrismCode/releases/tag/v0.1.2). The release font and its OFL notice are bundled in `public/fonts/prismcode/0.1.2/`. Its palette switches using the date in Europe/Vienna. December–February uses Ice, March–May uses Aurora, June–August uses Neon, and September–November uses Sunset.

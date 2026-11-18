@@ -3,7 +3,11 @@ import { NewsletterSignup } from "../components/NewsletterSignup";
 import { Masthead } from "../components/brand/Masthead";
 import { formatDate, issueNumber, schedule } from "../lib/calendar";
 import { listIssueMetadata } from "../lib/issues";
+import { JsonLd } from "../components/seo/JsonLd";
+import { periodicalId, publicMetadata, publicPages, siteId, siteUrl } from "../lib/seo";
 import { publication } from "../lib/theme";
+
+export const metadata = publicMetadata(publicPages.home);
 
 export default async function HomePage() {
   const [latest] = await listIssueMetadata();
@@ -12,6 +16,27 @@ export default async function HomePage() {
 
   return (
     <div className="home">
+      <JsonLd data={{
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": siteId,
+            url: siteUrl("/"),
+            name: publication.name,
+            inLanguage: "en",
+            description: publication.tagline,
+            about: { "@id": periodicalId },
+          },
+          {
+            "@type": "Periodical",
+            "@id": periodicalId,
+            url: siteUrl("/"),
+            name: publication.name,
+            inLanguage: "en",
+          },
+        ],
+      }} />
       <section className="hero" aria-label={publication.name}>
         <Masthead as="h1" className="hero-title" />
         <p className="hero-tagline">{publication.tagline}</p>

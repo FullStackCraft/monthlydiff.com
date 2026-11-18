@@ -6,13 +6,14 @@ import "@fontsource/pt-serif/latin-400.css";
 import "@fontsource/pt-serif/latin-400-italic.css";
 import "@fontsource/pt-serif/latin-700.css";
 import { Masthead } from "../components/brand/Masthead";
+import { publicPages } from "../lib/seo";
 import { publication, theme } from "../lib/theme";
 import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL(publication.origin),
   title: { default: publication.name, template: `%s | ${publication.name}` },
-  description: publication.tagline,
+  description: publicPages.home.description,
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

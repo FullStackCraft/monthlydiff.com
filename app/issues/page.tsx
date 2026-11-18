@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
+import { publicMetadata, publicPages } from "../../lib/seo";
 import Link from "next/link";
 import { formatDate, issueNumber } from "../../lib/calendar";
 import { listIssueMetadata } from "../../lib/issues";
 
-export const metadata: Metadata = { title: "Issue archive" };
+export const metadata = publicMetadata(publicPages.archive);
 
 export default async function ArchivePage() {
   const issues = await listIssueMetadata();

@@ -1,10 +1,10 @@
-import type { Metadata } from "next";
+import { publicMetadata, publicPages } from "../../lib/seo";
 import Link from "next/link";
 import { YearCalendar } from "../../components/calendar/YearCalendar";
 import { calendarYear, formatDate, issueNumber, schedule } from "../../lib/calendar";
 import { listIssueMetadata } from "../../lib/issues";
 
-export const metadata: Metadata = { title: "Publication calendar" };
+export const metadata = publicMetadata(publicPages.calendar);
 
 export default async function CalendarPage() {
   const publishedIds = new Set((await listIssueMetadata()).map(({ id }) => id));
